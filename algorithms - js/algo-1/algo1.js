@@ -11,19 +11,21 @@
 // Input:  [3, 7, 1, 9, 4]  →  Output: 9
 // Input:  [-5, -1, -8, -3] →  Output: -1
 
-let = Input  [3, 7, 1, 9, 4];
+let input   = [3, 7, 1, 9, 4];
+let input2   =  [-5, -1, -8, -3];
 
 function findMax(arr) {
   
     let max = arr[0];
-
     for(let i =0;i<arr.length; i++){
 
         if( arr[i] > max){
             max = arr[i];
         }
-
     }
   return max;
-  
 } 
+
+
+console.log(findMax(input));
+console.log(findMax(input2));
