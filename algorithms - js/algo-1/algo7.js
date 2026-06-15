@@ -31,5 +31,55 @@ function f1( str1, str2){
 console.log(f1("listen", "silent" ));
 console.log(f1("hello",  "world"));
 console.log(f1("cat",    "car"));
+console.log(f1("aa", "ab"));        /////NOT WIRKING FOR THIS EXEMPLE
+
+
+
+
+
+
+function f1(str1, str2) {
+
+    if (str1.length !== str2.length) {
+        return false;
+    }
+
+    const lettersMap = new Map();
+
+    // סופרים כמה פעמים כל אות מופיעה ב-str1
+    for (let i = 0; i < str1.length; i++) {
+        let char = str1[i];
+
+        if (lettersMap.has(char)) {
+            lettersMap.set(char, lettersMap.get(char) + 1);
+        } else {
+            lettersMap.set(char, 1);
+        }
+    }
+
+    // מורידים ספירה לפי האותיות של str2
+    for (let i = 0; i < str2.length; i++) {
+        let char = str2[i];
+
+        if (!lettersMap.has(char)) {
+            return false;
+        }
+
+        lettersMap.set(char, lettersMap.get(char) - 1);
+
+        if (lettersMap.get(char) < 0) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+console.log(f1("listen", "silent")); // true
+console.log(f1("hello", "world"));   // false
+console.log(f1("cat", "car"));       // false
+console.log(f1("aa", "ab"));         // false
+console.log(f1("aab", "abb"));       // false
+
 
 
