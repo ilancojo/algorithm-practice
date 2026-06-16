@@ -11,51 +11,41 @@
 // Input:  "pwwkew"    →  Output: 3  ("wke")
 
 
-
+////Sliding Window////
 
 function f1(str) {
-
     let strLen = str.length;
-    if(strLen === 0) {return 0};
-
-    let allStr= new Map();
-   
-    let count = 0;
-    let currentSub ="";
-
-    for (let i = 0 ; i < strLen ; i++) {
-       
-        let current = str[i];
-        let next = str[i+1];
-
-        if ((current.charCodeAt(0) < 91 ||  current.charCodeAt(0) > 64 || current.charCodeAt(0) > 96 || current.charCodeAt(0) < 123) && (next !== current)) {
-
-                currentSub +=current;
-                count++;
-                allStr.set(currentSub,count);
-
-        }
-        else{
-                let count = 0;
-                let currentSub ="";
-        }       
+    if (strLen === 0) {
+        return 0;
     }
 
-    let result = allStr.values().forEach(num=>{
-            let result = 1;
-            if(num > result) {
-                 result = num;
-            } 
-        });
+    let charsSet = new Set();
+    let left = 0;       //left
+    let maxLength = 0;  //  right
 
-    return  result;
+    for (let right = 0; right < strLen; right++) {
+
+        while (charsSet.has(str[right])) {
+            charsSet.delete(str[left]);
+            left++;
+        }
+
+        charsSet.add(str[right]);
+
+        let currentLength = right - left + 1;
+
+        if (currentLength > maxLength) {
+            maxLength = currentLength;
+        }
+    }
+
+    return maxLength;
 }
 
-console.log(f1("abcabcbb"));    //→  Output: 3  ("abc")
-console.log(f1("bbbbb"));       // Input:  "bbbbb"     →  Output: 1  ("b")
-console.log(f1("pwwkew"));      // Input:  "pwwkew"    →  Output: 3  ("wke")
-
-
+console.log(f1("abcabcbb")); // 3
+console.log(f1("bbbbb"));    // 1
+console.log(f1("pwwkew"));   // 3
+console.log(f1(""));         // 0
 
 
 
